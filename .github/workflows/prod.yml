@@ -77,3 +77,5 @@ jobs:
       - uses: databricks/setup-cli@main
       - run: databricks bundle run dlt-sensors-pipeline --refresh-all --target prod
       # in here, we can run all the resources we defined on the databricks.yml
+
+      #xd
