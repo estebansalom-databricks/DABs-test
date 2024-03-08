@@ -32,8 +32,8 @@ targets:
       host: https://adb-984752964297111.11.azuredatabricks.net
 
     variables:
-      target_catalog: dev_catalog_awesome_company
-      target_schema: dev_schema_awesome_company
+      target_catalog: dev_andromeda
+      target_schema: andromeda_dev
 
     default: true
     mode: development
@@ -54,8 +54,8 @@ targets:
       host: https://adb-984752964297111.11.azuredatabricks.net
 
     variables:
-      target_catalog: prod_catalog_awesome_company
-      target_schema: prod_schema_awesome_company
+      target_catalog: prod_andromeda
+      target_schema: andromeda_prod
       
     # mode: production
     resources:

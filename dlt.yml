@@ -1,7 +1,7 @@
 resources:
   pipelines:
     dlt-sensors-pipeline:
-      name: "DTL Sensors pipeline"
+      name: "DABs test pipeline"
       continuous: false
       channel: "PREVIEW"
  
