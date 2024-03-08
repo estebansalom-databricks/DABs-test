@@ -1,0 +1,78 @@
+# yaml-language-server: $schema=bundle-schema.json
+bundle:
+  name: awesome-dab-cicd-project
+  
+variables:
+  # Variables values can be set here, through CLI or ENV variables.test
+  target_catalog: 
+    description: "Catalog that DLT resources are going to target"
+  target_schema: 
+    description: "Schema that DLT resources are going to target"
+
+include:
+  - jobs.yml
+  - dlt.yml
+
+# resources:
+  # jobs:
+    # job-1:
+    #   ...
+    # job-2:
+    #   ...
+
+  # pipelines:
+    # pipeline-1:
+    #   ...
+    # pipeline-2:
+      # ...
+    
+targets:
+  dev:
+    workspace:
+      host: https://adb-984752964297111.11.azuredatabricks.net
+
+    variables:
+      target_catalog: dev_catalog_awesome_company
+      target_schema: dev_schema_awesome_company
+
+    default: true
+    mode: development
+    
+    resources:
+      pipelines:
+        dlt-sensors-pipeline:
+          development: true
+          photon: false
+
+          clusters:
+            - label: "default"
+              num_workers: 2
+
+
+  prod:
+    workspace:
+      host: https://adb-984752964297111.11.azuredatabricks.net
+
+    variables:
+      target_catalog: prod_catalog_awesome_company
+      target_schema: prod_schema_awesome_company
+      
+    # mode: production
+    resources:
+      pipelines:
+        dlt-sensors-pipeline:
+          development: false
+          photon: true
+
+          clusters:
+            - label: "default"
+              num_workers: 4
+
+      jobs:
+        galaxy-job:
+          job_clusters:
+            - job_cluster_key: common-cluster
+              new_cluster:
+                spark_version: 13.3.x-scala2.12
+                node_type_id: Standard_DS3_v2
+                num_workers: 4
